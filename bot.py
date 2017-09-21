@@ -45,6 +45,13 @@ def download_audio(search):
         info_dict = ydl.extract_info(url, download=True)
         return info_dict.get("id", None)
 
+
+@client.event
+async def on_ready():
+    print("Bot is running")
+    await client.change_presence(game=discord.Game(name="sweet tunes | %help"))
+
+
 @client.event
 async def on_message(message):
     """Handle incoming messages:
