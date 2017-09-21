@@ -116,7 +116,7 @@ async def on_message(message):
             if player:
                 player.stop()
         
-        if player.error:
+        if player and player.error:
             print("Player error:" + str(player.error))
 
 
