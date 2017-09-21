@@ -93,7 +93,7 @@ async def on_message(message):
             # Start playing sweet tunes
             if not message.author.voice.is_afk and message.author.voice.voice_channel is not None:
                 # Connect to voice
-                if not voice:
+                if not voice or not voice.is_connected():
                     voice = await client.join_voice_channel(message.author.voice.voice_channel)
                 elif voice.channel != message.author.voice.voice_channel:
                     voice.move_to(message.author.voice.voice_channel)
@@ -115,6 +115,7 @@ async def on_message(message):
         elif command == "stop":
             if player:
                 player.stop()
+                await voice.disconnect()
         
         if player and player.error:
             print("Player error:" + str(player.error))
